@@ -11,8 +11,8 @@ app.get('/', function(req, res) {
 app.get('/whoami', function(req, res) {
   var result = {
     ip : req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-    language : req.acceptsLanguages(),
-    OS : process.platform
+    language : req.acceptsLanguages()[0],
+    software : /\((.*?)\)/g.exec(req.headers['user-agent'])[1]
   }
   
   res.json(result)
